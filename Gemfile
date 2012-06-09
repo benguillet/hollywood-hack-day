@@ -23,6 +23,9 @@ group :assets do
   gem 'therubyracer', :platforms => :ruby
 
   gem 'uglifier', '>= 1.0.3'
+
+  # Add twitter bootstrap
+  gem 'bootstrap-sass', '2.0.0'
 end
 
 gem 'jquery-rails'
@@ -42,7 +45,6 @@ gem 'jquery-rails'
 # To use debugger
 # gem 'debugger'
 
-gem 'bootstrap-sass', '2.0.0'
 # auth gem
 gem 'devise'
 gem 'omniauth'

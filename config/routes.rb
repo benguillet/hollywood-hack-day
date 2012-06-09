@@ -6,11 +6,6 @@ VideoList::Application.routes.draw do
     delete 'sign_out', :to => 'devise/sessions#destroy', :as => :destroy_user_session
   end
 
-  # devise_scope :user do
-  #   get    'sign_in',  :to => 'users/sessions#new',     :as => :new_user_session
-  #   delete 'sign_out', :to => 'users/sessions#destroy', :as => :destroy_user_session
-  # end
-
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
