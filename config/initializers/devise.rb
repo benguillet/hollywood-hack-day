@@ -1,3 +1,5 @@
+require "omniauth-facebook"
+
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
 Devise.setup do |config|
@@ -82,7 +84,7 @@ Devise.setup do |config|
   config.stretches = Rails.env.test? ? 1 : 10
 
   # Setup a pepper to generate the encrypted password.
-  # config.pepper = "369715b5efa79bfb473cab85071e94e72104d8c3b239b3638a14779ef6f91c55c411437dd40502e9d8f082458168c4dd33e5e55593a19c7c7e1b19646149ce9b"
+  # config.pepper = "ab0325c535b6ed99d1e3c79cd2f39f58ca3ab32072b375e678607e5bb888e3720bef3704615e3074cfc672c1dc247eb5ad152dce498d522e1290995999c65887"
 
   # ==> Configuration for :confirmable
   # A period that the user is allowed to access the website even without
@@ -203,7 +205,7 @@ Devise.setup do |config|
   # ==> OmniAuth
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
-  # config.omniauth :github, 'APP_ID', 'APP_SECRET', :scope => 'user,public_repo'
+  config.omniauth :facebook, "442490979108624", "c8305f5b5a09411b7ed343d87f376bbb"
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
