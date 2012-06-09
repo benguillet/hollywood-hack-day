@@ -1,14 +1,19 @@
 <ul>
   <% @videos.each do |video| %>
 
-<!-- will check video.origin and create appropriate iframe -->
-
-	<iframe id= "<%= video.id %>" type="text/html" width="640" height="390"
-	  src="<%= video.url %>?modestbranding=1&controls=0&showinfo=0"
-	  frameborder="0"/>
-	</iframe>
+  <% case video.source %>
+    <% when "youtube"%>  
+	  <iframe id= "<%= video.id %>" type="text/html" width="640" height="390"
+	    src="<%= video.url %>?modestbranding=1&controls=0&showinfo=0"
+	    frameborder="0"/>
+	  </iframe>
+    <% when "vimeo"%>
+      <iframe src="<%= video.url %>?title=0&byline=0&portrait=0" width="640" height="390" 
+		frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen>
+	  </iframe>
+    <% end %>
 
   <% end %>
 </ul>
 
-<iframe src="http://player.vimeo.com/video/43708825?title=0&byline=0&portrait=0" width="640" height="390" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+
