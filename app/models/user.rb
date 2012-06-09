@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
   # attr_accessible :title, :body
 
   def self.find_for_facebook_oauth(auth, signed_in_resource = nil)
-    user = User.where(:provider => auth.provider, :uid => auth.uid).first
+    user = User.where('email = :email OR (provider = :provider AND uid = :uid)', {:email => auth.info.email, :provider => auth.provider, :uid => auth.uid}).first
 
     unless user
       user = User.create
@@ -24,5 +24,13 @@ class User < ActiveRecord::Base
     end
 
     return user
+  end
+
+  def self.new_with_session(params, session)
+    super.tap do |user|
+      if data = session["devise.facebook_data"] && session["devise.facebook_data"]["extra"]["raw_info"]
+        user.email = data["email"]
+      end
+    end
   end
 end
