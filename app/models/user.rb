@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
   # attr_accessible :title, :body
 
   def self.find_for_facebook_oauth(auth, signed_in_resource = nil)
-    user = User.where('provider = :provider AND uid = :uid', {:provider => auth.provider, :uid => auth.uid}).first
+    user = User.where(:provider => 'facebook', :uid => auth.uid).first
 
     unless user
       user = User.create
@@ -17,9 +17,11 @@ class User < ActiveRecord::Base
       user.provider = auth.provider
       user.uid = auth.uid
       user.email = auth.info.email
-
-      user.save
     end
+
+    user.access_token = auth.credentials.token
+
+    user.save
 
     return user
   end
