@@ -1,0 +1,2 @@
+require "omniauth-facebook"
+config.omniauth :facebook, "APP_ID", "APP_SECRET"

@@ -1,5 +1,6 @@
 VideoList::Application.routes.draw do
-  #get "/" => "list#index"
+  devise_for :users
+  root :to => "list#index"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
