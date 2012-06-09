@@ -15,10 +15,10 @@
   frameborder="0"/>
 </iframe>
 
-<iframe id="ytplayer2" type="text/html" width="640" height="390"
-  src="http://www.youtube.com/embed/u1zgFlCw8Aw?origin=http://example.com"
-  frameborder="0"/>
-</iframe>
-
-
 <%= link_to image_tag("rails.png", alt: "Rails"), 'http://rubyonrails.org/' %>
+
+<ul>
+  <% @videos.each do |video| %>
+    <li><%= video.url %></li>
+  <% end %>
+</ul>
