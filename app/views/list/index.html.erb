@@ -1,5 +1,10 @@
 <ul>
   <% @videos.each do |video| %>
-    <li><%= video.url %></li>
+
+	<iframe id= "<%= video.id %>" type="text/html" width="640" height="390"
+	  src="<%= video.url %>"
+	  frameborder="0"/>
+	</iframe>
+
   <% end %>
 </ul>
