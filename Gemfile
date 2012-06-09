@@ -9,6 +9,10 @@ group :development, :test do
   gem "sqlite3"
 end
 
+group :production do
+  gem 'pg', '0.12.2'
+end
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
@@ -38,8 +42,7 @@ gem 'jquery-rails'
 # To use debugger
 # gem 'debugger'
 
-gem "twitter-bootstrap-rails"
-
+gem 'bootstrap-sass', '2.0.0'
 # auth gem
 gem 'devise'
 gem 'omniauth'

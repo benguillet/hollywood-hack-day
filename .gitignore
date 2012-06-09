@@ -16,3 +16,4 @@ Gemfile.lock
 /tmp
 
 .DS_Store
+Gemfile.lock
