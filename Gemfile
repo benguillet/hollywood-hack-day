@@ -6,7 +6,7 @@ gem 'rails', '3.2.5'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 group :development do
-    gem 'sqlite3'
+  gem "sqlite3"
 end
 
 # Gems used only for assets and not required
@@ -39,3 +39,6 @@ gem 'jquery-rails'
 # gem 'debugger'
 
 gem "twitter-bootstrap-rails"
+
+# auth gem
+gem 'devise'
