@@ -11,13 +11,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120609195330) do
+ActiveRecord::Schema.define(:version => 20120609203053) do
 
   create_table "contents", :force => true do |t|
-    t.string  "user_id"
-    t.string  "url"
-    t.integer "rate_up"
-    t.integer "rate_down"
+    t.string   "user_id"
+    t.string   "url"
+    t.integer  "rate_up"
+    t.integer  "rate_down"
+    t.datetime "post_date"
   end
 
   create_table "users", :force => true do |t|
