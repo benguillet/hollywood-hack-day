@@ -135,6 +135,7 @@ DEPENDENCIES
   coffee-rails (~> 3.2.1)
   devise
   jquery-rails
+  omniauth
   omniauth-facebook
   pg (= 0.12.2)
   rails (= 3.2.5)

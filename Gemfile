@@ -45,4 +45,5 @@ gem 'jquery-rails'
 gem 'bootstrap-sass', '2.0.0'
 # auth gem
 gem 'devise'
-gem "omniauth-facebook"
+gem 'omniauth'
+gem 'omniauth-facebook'
