@@ -11,12 +11,17 @@ class ShareController < ApplicationController
 
 
     if params[:internal] and params[:content_id]
-      old_content           = Content.where(:id => params[:content_id]).first
+      old_content = Content.where(:id => params[:content_id]).first
       
-      content           = Content.new
-      content.url      = old_content.url
-      content.source   = old_content.source
-      content.user_id  = current_user.id
+      if old_content.user_id == current_user.id
+        content = old_content
+        content.post_date = Time.now.getutc
+      else
+        content           = Content.new
+        content.url      = old_content.url
+        content.source   = old_content.source
+        content.user_id  = current_user.id
+      end
     end
 
     if params[:url]
