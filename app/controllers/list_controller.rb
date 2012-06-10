@@ -2,20 +2,12 @@ class ListController < ApplicationController
   before_filter :authenticate_user!
 
   def index_me
-    @videos = Content.where(:user_id => current_user.id).order('post_date DESC')
-
-    respond_to do |format|
-      format.html { render :template => 'list/index' }
-    end
+    @videos = Content.where(:user_id => current_user.id, :access => 'me').order('post_date DESC')
   end
   
   def index_friends
     @friends = User.where(:uid => ListHelper::get_facebook_friends_ids(current_user.access_token), :provider => 'facebook')
-    @videos  = Content.where(:user_id => @friends.map { |e| e.id }).order('post_date DESC')
-
-    respond_to do |format|
-      format.html { render :template => 'list/index' }
-    end
+    @videos  = Content.where(:user_id => @friends.map { |e| e.id }, :access => 'friends').order('post_date DESC')
   end
 
   def rate_up
