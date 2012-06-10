@@ -8,6 +8,9 @@ VideoList::Application.routes.draw do
 
   post 'share-to/:access' => 'share#create', :defaults => {:format => 'json'}
 
+  get 'form/sign-in' => 'form#sign_in'
+  get 'form(/:url)'  => 'form#index'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
