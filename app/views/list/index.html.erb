@@ -15,7 +15,6 @@
       });
 
       $('div.thumb_down').click(function() {
-	alert("coucou");
         $.ajax({
           type: "PUT",
           url: '/rate_down/' + $(this).data('id'),
@@ -28,7 +27,6 @@
         });
       });
 	  $('.share').click(function() {
-		alert("coucou");
         $.ajax({
           type: "POST",
           url: '/share-to/friends',
@@ -66,11 +64,10 @@
           <iframe class="video" src="<%= video.url %>?info=0&logo=0&wmode=transparent" width="640" height="390" frameborder="0">
           </iframe>
         <% end %>
-
         <div class="row">
-          <div class="thumb_up" data-id="<%= video.id %>" style="float:left"><IMG SRC="/images/thumb_up.png" ALT="image"></a></div>
-          <div class="thumb_down" data-id="<%= video.id %>" style="float:left"><IMG SRC="/images/thumb_down.png" ALT="image"></div>
-          <div class="share" data-id="<%= video.id %>" style="float:left"><IMG SRC="/images/share_button.png" ALT="image"></div>
+          <div class="thumb_up" data-id="<%= video.id %>" style="float:left"><IMG SRC=<%=image_path("thumb_up.png")%> ALT="image"></a></div>
+          <div class="thumb_down" data-id="<%= video.id %>" style="float:left"><IMG SRC=<%=image_path("thumb_down.png")%> ALT="image"></div>
+          <div class="share" data-id="<%= video.id %>" style="float:left"><IMG SRC=<%=image_path("share_button.png")%> ALT="image"></div>
         </div>
         <!--TODO in CSS: Make the buttons div clickable with cursor:pointer -->
       </div>
