@@ -26,7 +26,8 @@
           }
         });
       });
-	  $('.share').click(function() {
+
+      $('.share').click(function() {
         $.ajax({
           type: "POST",
           url: '/share-to/friends',
@@ -47,9 +48,8 @@
   
 <% end %>
 
-<ul>
-  <% @videos.each do |video| %>
-    <% next if not ['youtube', 'dailymotion', 'vimeo'].include? video.source %>
+<% @videos.each do |video| %>
+  <% next if not ['youtube', 'dailymotion', 'vimeo'].include? video.source %>
 
     <div class="row-fluid">
       <div class="span12">
@@ -71,6 +71,16 @@
         </div>
         <!--TODO in CSS: Make the buttons div clickable with cursor:pointer -->
       </div>
+      <!--TODO in CSS: Make the buttons div clickable with cursor:pointer -->
     </div>
-  <% end %>
-</ul>
+  </div>
+<% end %>
+
+<div>
+  <span style="float:left">
+    <%= link_to "< Older videos", '/friends?before=' + @videos.last.post_date.to_i.to_s %>
+  </span>
+  <span style="margin-left:10px;float:left">
+    <%= link_to "Newer videos >", '/friends?after=' + @videos.first.post_date.to_i.to_s %>
+  </span>
+</div>

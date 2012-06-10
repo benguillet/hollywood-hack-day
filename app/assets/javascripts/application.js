@@ -19,5 +19,3 @@ var Application = {
     return $('meta[name="csrf-token"]')[0].content;
   }
 }
-
-$()
