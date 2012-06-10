@@ -22,7 +22,10 @@ $(document).ready(function() {
           data: {'url': url},
           success: function() {  
            
-          }  
+          },
+          error: function(data) {
+            
+          }
         });  
     });
 
