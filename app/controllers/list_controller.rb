@@ -7,6 +7,5 @@ class ListController < ApplicationController
     @videos.each do |video|
       $stderr.puts video.url
     end
-    
   end
 end

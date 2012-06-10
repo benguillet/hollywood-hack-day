@@ -49,3 +49,6 @@ gem 'jquery-rails'
 gem 'devise'
 gem 'omniauth'
 gem 'omniauth-facebook'
+
+gem 'rest-client'
+gem 'nokogiri'
