@@ -32,14 +32,14 @@ class ShareController < ApplicationController
       content.user_id   = current_user.id
       content.source    = URI(url).host.match(/(www\.)?(.*)\.com/)[2]
 
-    content           = Content.new
-    content.user_id   = current_user.id
-    content.source    = URI(url).host.match(/(www\.)?(.*)\.com/)[2]
-    
-    url = ShareHelper::sanitize_url(url)
-    
-    content.url = # change url for embed url format
-    case content.source
+      content           = Content.new
+      content.user_id   = current_user.id
+      content.source    = URI(url).host.match(/(www\.)?(.*)\.com/)[2]
+
+      url = ShareHelper::sanitize_url(url)
+
+      content.url = # change url for embed url format
+      case content.source
       when 'youtube'
         hash = url.match(/^http:\/\/www.youtube.com\/watch\?v=([a-zA-Z0-9\-_]+)&?.*/)[1]
         "http://www.youtube.com/embed/#{hash}"
@@ -49,15 +49,16 @@ class ShareController < ApplicationController
       when 'dailymotion'
         video_id = url.match(/^http:\/\/www.dailymotion.com\/video\/([^_]+)/)[1]
         "http://www.dailymotion.com/embed/video/#{video_id}"
-    end
+      end
 
-    content.post_date = Time.now.strftime('%Y-%m-%d %H:%M:%S')
-    content.access    = access
+      content.post_date = Time.now.strftime('%Y-%m-%d %H:%M:%S')
+      content.access    = access
 
-    content.save
+      content.save
 
-    respond_to do |format|
-      format.json { render :json => {:status => 'success'} }
+      respond_to do |format|
+        format.json { render :json => {:status => 'success'} }
+      end
     end
   end
 end
