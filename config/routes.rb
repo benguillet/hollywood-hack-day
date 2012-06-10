@@ -2,14 +2,14 @@ VideoList::Application.routes.draw do
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
 
   devise_scope :user do
-    get    'sign_in',  :to => 'devise/sessions#new',     :as => :new_user_session
-    delete 'sign_out', :to => 'devise/sessions#destroy', :as => :destroy_user_session
+    get    'sign-in',  :to => 'devise/sessions#new',     :as => :new_user_session
+    delete 'sign-out', :to => 'devise/sessions#destroy', :as => :destroy_user_session
   end
 
   post 'share-to/:access' => 'share#create', :defaults => {:format => 'json'}
 
-  get 'form/sign-in' => 'form#sign_in'
-  get 'form(/:url)'  => 'form#index'
+  get 'form/sign-in(/:result)' => 'form#sign_in'
+  get 'form(/:url)'            => 'form#index'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
