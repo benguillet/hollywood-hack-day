@@ -6,8 +6,8 @@ VideoList::Application.routes.draw do
     delete 'sign_out', :to => 'devise/sessions#destroy', :as => :destroy_user_session
   end
 
-  post 'share-to/:access' => 'share#create', :defaults => {:format => 'json'}
-  put 'rate_up/:content_id' => 'list#rate_up'
+  post 'share-to/:access' => 'share#create'
+  post 'rate_up/:content_id' => 'list#rate_up'
   put 'rate_down/:content_id' => 'list#rate_down'
 
   get 'form/sign-in' => 'form#sign_in'
