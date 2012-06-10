@@ -44,13 +44,14 @@
             FB.api('/me/feed', 'POST', publish, function(response) {  
               if (!response || response.error) {
                   console.log(response.error.message);
-                  $('#notification').text(response.error.message).show();
                   $('#loading_post_fb').hide();
+                  $('#notification').text('fail').removeClass('alert-success').addClass("alert-error").show();
+                  
               }
               else {
                 console.log(response);
                 $('#loading_post_fb').hide();
-                $('#notification').text('success').show();
+                $('#notification').text('success').removeClass('alert-error').addClass("alert-success").show();
               }
             });
           };

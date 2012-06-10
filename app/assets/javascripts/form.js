@@ -12,11 +12,11 @@ $(document).ready(function() {
           data: {'url': url},
           success: function() {
             loading_add_list.hide();
-            $('#notification').text('success').show();
+            $('#notification').text('succes').removeClass('alert-error').addClass("alert-success").show();
           },
           error: function() {
             loading_add_list.hide();
-            $('#notification').text('fail').show();
+            $('#notification').text('fail').removeClass('alert-success').addClass("alert-error").show();
           }
         });
     });
@@ -31,11 +31,11 @@ $(document).ready(function() {
           data: {'url': url},
           success: function() {
             loading_share_friends.hide();
-            $('#notification').text('success').show();
+            $('#notification').text('succes').removeClass('alert-error').addClass("alert-success").show();
           },
           error: function() {
             loading_share_friends.hide();
-            $('#notification').text('fail').show();
+            $('#notification').text('fail').removeClass('alert-success').addClass("alert-error").show();
             
           }
         });  
