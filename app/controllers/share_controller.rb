@@ -11,6 +11,7 @@ class ShareController < ApplicationController
 
 
     if params[:internal] and params[:content_id]
+      $puts.stderr "COUCOU"
       content           = Content.where(:content_id => params[:content_id]).clone
       content.user_id   = current_user.id
     end

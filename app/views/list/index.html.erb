@@ -14,7 +14,8 @@
         });
       });
 
-      $('.thumb_down').click(function() {
+      $('div.thumb_down').click(function() {
+	alert("coucou");
         $.ajax({
           type: "PUT",
           url: '/rate_down/' + $(this).data('id'),
@@ -27,10 +28,11 @@
         });
       });
 	  $('.share').click(function() {
+		alert("coucou");
         $.ajax({
           type: "POST",
           url: '/share-to/friends',
-          data: {'content_id': $(this).data('id'), 'internal': 1}
+          data: {'content_id': $(this).data('id'), 'internal': 1},
           success: function(data) {
 
           },
