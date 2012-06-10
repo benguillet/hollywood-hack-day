@@ -11,9 +11,12 @@ class ShareController < ApplicationController
 
 
     if params[:internal] and params[:content_id]
-      $puts.stderr "COUCOU"
-      content           = Content.where(:content_id => params[:content_id]).clone
-      content.user_id   = current_user.id
+      old_content           = Content.where(:id => "#{params[:content_id]}").first
+      
+      content           = Content.new
+      content.url      = old_content.url
+      content.source   = old_content.source
+      content.user_id  = current_user.id
     end
 
     if params[:url]
@@ -51,15 +54,15 @@ class ShareController < ApplicationController
         video_id = url.match(/^http:\/\/www.dailymotion.com\/video\/([^_]+)/)[1]
         "http://www.dailymotion.com/embed/video/#{video_id}"
       end
+    end
 
-      content.post_date = Time.now.strftime('%Y-%m-%d %H:%M:%S')
-      content.access    = access
+    content.post_date = Time.now.strftime('%Y-%m-%d %H:%M:%S')
+    content.access    = access
 
-      content.save
+    content.save
 
-      respond_to do |format|
-        format.json { render :json => {:status => 'success'} }
-      end
+    respond_to do |format|
+      format.json { render :json => {:status => 'success'} }
     end
   end
 end

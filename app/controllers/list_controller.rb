@@ -6,10 +6,6 @@ class ListController < ApplicationController
       @current_controller = controller_name
   end
 
-  def sort_videos_by_hype video_array
-    sort_by{|a| (a.rate_down*1.5)-a.rate_up }
-  end
-
   def index_me
     if params[:before]
       query = Content.where('user_id = :user_id AND access = :access AND post_date < :post_date', {:user_id => current_user.id, :access => 'me', :post_date => Time.at(Integer(params[:before])).getutc.strftime('%Y-%m-%d %H:%M:%S')})
@@ -39,7 +35,7 @@ class ListController < ApplicationController
       query = Content.where(:user_id => current_user.id, :access => 'me')
     end
 
-    @videos = query.includes(:user).order('post_date DESC').limit(3)
+    @videos = query.includes(:user).order('(post_date - (rate_down * 1.5 - rate_up) * 1000) DESC').limit(3)
 
     respond_to do |format|
       format.html { 

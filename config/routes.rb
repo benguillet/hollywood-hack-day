@@ -19,6 +19,8 @@ VideoList::Application.routes.draw do
   get 'me' => 'list#index_me'
   get 'friends' => 'list#index_friends'
   
+  get 'landing' => 'landing#index'
+  
   root :to => 'list#index_friends'
 
   # The priority is based upon order of creation:
