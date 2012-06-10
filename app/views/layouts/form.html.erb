@@ -29,17 +29,16 @@
           });
         };
 
-        var publishPost = function() {
-            console.log('error');
+        var publishPost = function(url) {
             var publish = {
               method: 'stream.publish',
-              message: 'has shared a link via videoLink !',
-              picture : 'http://www.rue89.com/sites/news/files/styles/asset_img_full/public/assets/image/2012/06/penis-tordu-peyronie-medicament-sexe_0.jpg',
+              message: 'has shared a link via videoList !',
+              picture : '',
               link : url,
-              name: 'test',
+              name: '',
               caption: '',
-              description: 'test',
-              actions : { name : 'videoLink', link : 'http://www.rue89.com/sites/news/files/styles/asset_img_full/public/assets/image/2012/06/penis-tordu-peyronie-medicament-sexe_0.jpg'}
+              description: '',
+              actions : { name : 'videoLink', link : 'http://blazing-sunset-2499.herokuapp.com/'}
             };
 
             FB.api('/me/feed', 'POST', publish, function(response) {  
@@ -48,7 +47,7 @@
               }
               else {
                 console.log(response);
-                console.log('success');
+                
               }
             });
           };
@@ -61,8 +60,9 @@
          }(document));
 
         $(document).ready(function() {
+          var url = $('#url').text();
           $('#post_fb').click(function() {
-            publishPost();
+            publishPost(url);
           });
         });
       </script>
