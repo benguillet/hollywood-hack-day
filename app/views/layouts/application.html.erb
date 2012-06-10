@@ -17,9 +17,11 @@
         <div class="container-fluid">
           <%= link_to "videoList", '/', id: "logo" %>
           <nav>
-            <ul class="nav pull-right">
+            <ul class="nav">
               <li><%= link_to "Me",      '/me' %></li>
               <li><%= link_to "Friends", '/friends' %></li>
+            </ul>
+            <ul class="nav pull-right">
               <% if user_signed_in? %>
                 <li><%= link_to "Sign out", destroy_user_session_path, :method => :delete %></li>
               <% else %>
