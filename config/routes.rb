@@ -6,12 +6,11 @@ VideoList::Application.routes.draw do
     delete 'sign-out', :to => 'devise/sessions#destroy', :as => :destroy_user_session
   end
 
-  post 'share-to/:access' => 'share#create', :defaults => {:format => 'json'}
+  post 'share-to/:access' => 'share#create'
   put 'rate_up/:content_id' => 'list#rate_up'
   put 'rate_down/:content_id' => 'list#rate_down'
 
-  get 'form/sign-in(/:result)' => 'form#sign_in'
-  get 'form(/:url)'            => 'form#index'
+  get 'form' => 'form#index'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
