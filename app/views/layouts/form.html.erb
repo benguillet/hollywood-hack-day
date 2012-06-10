@@ -8,8 +8,64 @@
     <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
+    <style type="text/css">
+      body {
+        margin: 0;
+        padding: 0;
+      }
+    </style>
   </head>
+
   <body>
+    <div id="fb-root"></div>
+      <script>
+        window.fbAsyncInit = function() {
+          FB.init({
+            appId      : '442490979108624',
+            status     : true, 
+            cookie     : true,
+            xfbml      : true,
+            oauth      : true,
+          });
+        };
+
+        var publishPost = function() {
+            console.log('error');
+            var publish = {
+              method: 'stream.publish',
+              message: 'has shared a link via videoLink !',
+              picture : 'http://www.rue89.com/sites/news/files/styles/asset_img_full/public/assets/image/2012/06/penis-tordu-peyronie-medicament-sexe_0.jpg',
+              link : url,
+              name: 'test',
+              caption: '',
+              description: 'test',
+              actions : { name : 'videoLink', link : 'http://www.rue89.com/sites/news/files/styles/asset_img_full/public/assets/image/2012/06/penis-tordu-peyronie-medicament-sexe_0.jpg'}
+            };
+
+            FB.api('/me/feed', 'POST', publish, function(response) {  
+              if (!response || response.error) {
+                  console.log(response.error.message);
+              }
+              else {
+                console.log(response);
+                console.log('success');
+              }
+            });
+          };
+
+        (function(d){
+           var js, id = 'facebook-jssdk'; if (d.getElementById(id)) {return;}
+           js = d.createElement('script'); js.id = id; js.async = true;
+           js.src = "//connect.facebook.net/en_US/all.js";
+           d.getElementsByTagName('head')[0].appendChild(js);
+         }(document));
+
+        $(document).ready(function() {
+          $('#post_fb').click(function() {
+            publishPost();
+          });
+        });
+      </script>
     <%= render 'shared/flash_messages' %>
     <%= yield %>
   </body>
