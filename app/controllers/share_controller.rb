@@ -11,7 +11,7 @@ class ShareController < ApplicationController
 
 
     if params[:internal] and params[:content_id]
-      old_content           = Content.where(:id => "#{params[:content_id]}").first
+      old_content           = Content.where(:id => params[:content_id]).first
       
       content           = Content.new
       content.url      = old_content.url
