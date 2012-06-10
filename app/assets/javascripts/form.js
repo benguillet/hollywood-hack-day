@@ -18,15 +18,12 @@ $(document).ready(function() {
         var url = $('#url').text();
         console.log(url);
         $.ajax({
-            type: "POST",
-            url: "/share-to/friends",  
-            data: {'url': url},
-            success: function() {  
-
-            },
-            error: function(data) {
-                //console.log(data.message);
-            }
-        });
+          type: "POST",
+          url: "/share-to/friends",  
+          data: {'url': url},
+          success: function() {  
+           
+          }  
+        });  
     });
 });

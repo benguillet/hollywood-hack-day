@@ -75,11 +75,14 @@ class ImportFbController < ApplicationController
 
   #
   def insert_video_into_db url
+    # change url for embed format
+    url.sub!(/^http:\/\/www.youtube.com\/watch\?v=/, 'http://www.youtube.com/embed/')
+    
     content           = Content.new
     content.user_id   = current_user.id
     content.url       = ShareHelper::sanitize_url(url)
     content.post_date = Time.now.strftime('%Y-%m-%d %H:%M:%S')
-    content.source    = URI(content.url).host
+    content.source    = URI(content.url).host.match(/www\.(.*)\.com/)[1]
     content.access    = 'friends'
 
     content.save
