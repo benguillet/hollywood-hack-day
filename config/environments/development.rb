@@ -35,4 +35,7 @@ VideoList::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+
+  # Use a different cache store in production
+  config.cache_store = :null_store
 end
