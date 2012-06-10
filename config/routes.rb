@@ -12,6 +12,8 @@ VideoList::Application.routes.draw do
 
   get 'form' => 'form#index'
 
+  get 'import' => 'import_fb#import_user_and_friends_shared_videos'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
