@@ -1,0 +1,12 @@
+all: &all
+  a: b
+
+production:
+  facebook:
+    app_id: 318629824886780
+  <<: *all
+
+development:
+  facebook:
+    app_id: 442490979108624
+  <<: *all

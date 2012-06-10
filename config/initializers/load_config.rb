@@ -1,0 +1,1 @@
+Rails.configuration.app_config = YAML.load_file("#{Rails.root}/config/config.yml")[Rails.env.to_s].freeze
