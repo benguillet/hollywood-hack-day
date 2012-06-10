@@ -1,4 +1,5 @@
 //= require jquery
+
 $(document).ready(function() {
     $('#add_list').click(function() {
         var url = $('#url').text();
