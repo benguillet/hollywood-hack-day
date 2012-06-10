@@ -30,7 +30,7 @@
       $('.share').click(function() {
         $.ajax({
           type: "POST",
-          url: '/share-to/friends',
+          url: '/share-to/<%= @current_action == "index_me" ? "me" : "friends" %>',
           data: {'content_id': $(this).data('id'), 'internal': 1},
           success: function(data) {
 
@@ -44,15 +44,18 @@
   </script>
 <% end %>
 
-<% content_for :css do %>
-  
-<% end %>
-
 <% @videos.each do |video| %>
   <% next if not ['youtube', 'dailymotion', 'vimeo'].include? video.source %>
 
-  <div class="row-fluid">
+  <div class="row-fluid" style="padding:10px">
     <div class="span12">
+      <% if @current_action == 'index_friends' %>
+        <div style="padding:5px">
+          <h2>
+            <%= video.user.name %>
+          </h2>
+        </div>
+      <% end %>
       <% case video.source %>
       <% when "youtube" %>  
         <iframe class="video" id= "<%= video.id %>" type="text/html" width="640" height="390" src="<%= video.url %>?modestbranding=1&controls=0&showinfo=0&wmode=transparent" frameborder="0"/>
@@ -64,7 +67,7 @@
         <iframe class="video" src="<%= video.url %>?info=0&logo=0&wmode=transparent" width="640" height="390" frameborder="0">
         </iframe>
       <% end %>
-      <div class="row">
+      <div class="row" style="padding:10px">
         <div class="thumb_up" data-id="<%= video.id %>" style="float:left"><IMG SRC=<%=image_path("thumb_up.png")%> ALT="image"></a></div>
         <div class="thumb_down" data-id="<%= video.id %>" style="float:left"><IMG SRC=<%=image_path("thumb_down.png")%> ALT="image"></div>
         <div class="share" data-id="<%= video.id %>" style="float:left"><IMG SRC=<%=image_path("share_button.png")%> ALT="image"></div>
@@ -75,11 +78,11 @@
   </div>
 <% end %>
 
-<div>
-  <span style="float:left">
+<div class="span12" style="text-align:center">
+  <h3 style="float:left">
     <%= link_to "< Older videos", '/friends?before=' + @videos.last.post_date.to_i.to_s %>
-  </span>
-  <span style="margin-left:10px;float:left">
+  </h3>
+  <h3 style="padding-left:10px;float:left">
     <%= link_to "Newer videos >", '/friends?after=' + @videos.first.post_date.to_i.to_s %>
-  </span>
+  </h3>
 </div>
