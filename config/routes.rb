@@ -17,6 +17,8 @@ VideoList::Application.routes.draw do
   get 'import' => 'import_fb#import_user_and_friends_shared_videos'
 
   get 'me' => 'list#index_me'
+  get 'friends' => 'list#index_friends'
+  
   root :to => 'list#index_friends'
 
   # The priority is based upon order of creation:
