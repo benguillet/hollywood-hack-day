@@ -36,7 +36,7 @@ class ShareController < ApplicationController
     content.user_id   = current_user.id
     content.url       = ShareHelper::sanitize_url(og_tags['video'])
     content.post_date = Time.now.strftime('%Y-%m-%d %H:%M:%S')
-    content.source    = URI(content.url).host
+    content.source    = URI(content.url).host.split('.').at(-2)
     content.access    = access
 
     content.save
