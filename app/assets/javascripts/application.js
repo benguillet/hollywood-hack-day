@@ -14,4 +14,8 @@
 //= require jquery_ujs
 //= require_tree .
 
-
+var Application = {
+  authenticity_token: function() {
+    return $('meta[name="csrf-token"]')[0].content;
+  }
+}

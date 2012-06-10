@@ -1,4 +1,5 @@
 //= require jquery
+
 $(document).ready(function() {
     var url = $('#url').text();
 

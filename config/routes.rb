@@ -8,8 +8,8 @@ VideoList::Application.routes.draw do
 
   post 'share-to/:access' => 'share#create', :defaults => {:format => 'json'}
 
-  put 'rate_up/:content_id' => 'list#rate_up'
-  put 'rate_down/:content_id' => 'list#rate_down'
+  put 'rate_up/:content_id' => 'list#rate_up', :defaults => {:format => 'json'}
+  put 'rate_down/:content_id' => 'list#rate_down', :defaults => {:format => 'json'}
 
   get 'form'         => 'form#index'
   get 'form/sign-in' => 'form#sign_in'
