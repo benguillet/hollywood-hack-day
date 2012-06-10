@@ -10,8 +10,10 @@ VideoList::Application.routes.draw do
   put 'rate_up/:content_id' => 'list#rate_up'
   put 'rate_down/:content_id' => 'list#rate_down'
 
-  get 'form/sign-in(/:result)' => 'form#sign_in'
-  get 'form(/:url)'            => 'form#index'
+  get 'form/sign-in' => 'form#sign_in'
+  get 'form(/:url)'  => 'form#index'
+  get 'import' => 'import_fb#import_user_and_friends_shared_videos'
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
