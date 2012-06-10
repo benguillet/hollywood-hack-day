@@ -50,7 +50,20 @@ class ImportFbController < ApplicationController
   
   #
   def import_user_latest_shared_video_links user_id, limit
-    query_hash = perform_fql_query("SELECT url FROM link WHERE owner=#{user_id=='me' ? 'me()' : user_id} AND strpos(url,'http://www.youtube.com/watch?v=')=0 LIMIT #{USER_VIDEO_FQL_LIMIT}")
+    query_string = %(
+      SELECT url 
+      FROM link 
+      WHERE 
+        owner=#{user_id=='me' ? 'me()' : user_id} 
+      AND 
+      (
+        strpos(url,'http://www.youtube.com/watch?v=')=0 
+        OR strpos(url,'http://vimeo.com/')=0 
+        OR strpos(url,'http://www.dailymotion.com/video')=0
+      )
+      LIMIT #{USER_VIDEO_FQL_LIMIT}
+    )
+    query_hash = perform_fql_query(query_string)
     urls = query_hash.collect{ |row| row['url'] }
     urls.each{ |url| insert_video_into_db(url) }
   end
@@ -70,19 +83,30 @@ class ImportFbController < ApplicationController
   #
   def import_user_and_friends_shared_videos
     import_user_latest_shared_video_links('me', USER_VIDEO_FQL_LIMIT)
-    #import_friends_latest_shared_video_links
+    respond_to do |format|
+      format.json { render :json => {:status => 'success'} }
+    end
+    
   end
 
   #
   def insert_video_into_db url
-    # change url for embed format
-    url.sub!(/^http:\/\/www.youtube.com\/watch\?v=/, 'http://www.youtube.com/embed/')
-    
     content           = Content.new
     content.user_id   = current_user.id
+    content.source    = URI(url).host.match(/(www\.)?(.*)\.com/)[2]
+    
+    content.url = # change url for embed url format
+    case content.source
+      when 'youtube'
+        url.sub!(/^http:\/\/www.youtube.com\/watch\?v=/, 'http://www.youtube.com/embed/')
+      when 'vimeo'
+        url.sub!(/^http:\/\/vimeo.com\//, 'http://player.vimeo.com/video/')
+      when 'dailymotion'
+        url.sub!(/^http:\/\/www.dailymotion.com\/video\//, 'http://www.dailymotion.com/embed/video/')
+    end
+    
     content.url       = ShareHelper::sanitize_url(url)
     content.post_date = Time.now.strftime('%Y-%m-%d %H:%M:%S')
-    content.source    = URI(content.url).host.match(/www\.(.*)\.com/)[1]
     content.access    = 'friends'
 
     content.save

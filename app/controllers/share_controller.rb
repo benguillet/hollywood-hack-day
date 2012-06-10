@@ -18,6 +18,8 @@ class ShareController < ApplicationController
       if not ShareHelper::is_http_url_valid(url)
         raise 'the url you give is not a valid http url'
       end
+      
+      #Useless og tags
 
       og_tags = ShareHelper::get_opengraph_tags(url)
     else
@@ -34,9 +36,19 @@ class ShareController < ApplicationController
 
     content           = Content.new
     content.user_id   = current_user.id
-    content.url       = ShareHelper::sanitize_url(og_tags['video'])
+    content.source    = URI(url).host.match(/(www\.)?(.*)\.com/)[2]
+    
+    content.url = # change url for embed url format
+    case content.source
+      when 'youtube'
+        url.sub!(/^http:\/\/www.youtube.com\/watch\?v=/, 'http://www.youtube.com/embed/')
+      when 'vimeo'
+        url.sub!(/^http:\/\/vimeo.com\//, 'http://player.vimeo.com/video/')
+      when 'dailymotion'
+        url.sub!(/^http:\/\/www.dailymotion.com\/video\//, 'http://www.dailymotion.com/embed/video/')
+    end
+  
     content.post_date = Time.now.strftime('%Y-%m-%d %H:%M:%S')
-    content.source    = URI(content.url).host.split('.').at(-2)
     content.access    = access
 
     content.save

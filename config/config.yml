@@ -4,9 +4,11 @@ all: &all
 production:
   facebook:
     app_id: 318629824886780
+    app_secret: b4e4c91df99b6990b78ba04ee9d53dd3
   <<: *all
 
 development:
   facebook:
     app_id: 442490979108624
+    app_secret: c8305f5b5a09411b7ed343d87f376bbb
   <<: *all
