@@ -48,7 +48,7 @@
   <% next if not ['youtube', 'dailymotion', 'vimeo'].include? video.source %>
 
   <div class="row-fluid" style="padding:10px">
-    <div class="span12">
+    <div>
       <% if @current_action == 'index_friends' %>
         <div style="padding:5px">
           <h2>
@@ -57,21 +57,23 @@
         </div>
       <% end %>
       <% case video.source %>
-      <% when "youtube" %>  
-        <iframe class="video" id= "<%= video.id %>" type="text/html" width="640" height="390" src="<%= video.url %>?modestbranding=1&controls=0&showinfo=0&wmode=transparent" frameborder="0"/>
-        </iframe>
+      <% when "youtube" %>
+        <iframe class="video" style="float:left" id= "<%= video.id %>" type="text/html" width="640" height="390" src="<%= video.url %>?modestbranding=1&controls=0&showinfo=0&wmode=transparent" frameborder="0"></iframe>
       <% when "vimeo" %>
-        <iframe class="video" src="<%= video.url %>?title=0&byline=0&portrait=0&wmode=transparent" width="640" height="390" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen>
-        </iframe>
+        <iframe class="video" style="float:left" src="<%= video.url %>?title=0&byline=0&portrait=0&wmode=transparent" width="640" height="390" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
       <% when "dailymotion" %>
-        <iframe class="video" src="<%= video.url %>?info=0&logo=0&wmode=transparent" width="640" height="390" frameborder="0">
-        </iframe>
+        <iframe class="video" style="float:left" src="<%= video.url %>?info=0&logo=0&wmode=transparent" width="640" height="390" frameborder="0"></iframe>
       <% end %>
-      <div class="row" style="padding:10px">
-        <div class="thumb_up" data-id="<%= video.id %>" style="float:left"><IMG SRC=<%=image_path("thumb_up.png")%> ALT="image"></a></div>
-        <div class="thumb_down" data-id="<%= video.id %>" style="float:left"><IMG SRC=<%=image_path("thumb_down.png")%> ALT="image"></div>
-        <div class="share" data-id="<%= video.id %>" style="float:left"><IMG SRC=<%=image_path("share_button.png")%> ALT="image"></div>
+      <div class="thumb_up" data-id="<%= video.id %>" style="margin-left:650px">
+        <IMG SRC=<%=image_path("thumb_up.png")%> ALT="image">
       </div>
+      <div class="share" data-id="<%= video.id %>" style="margin-left:650px">
+        <IMG SRC=<%=image_path("share_button.png")%> ALT="image">
+      </div>
+      <div class="thumb_down" data-id="<%= video.id %>" style="margin-left:650px">
+        <IMG SRC=<%=image_path("thumb_down.png")%> ALT="image">
+      </div>
+    </div>
     <!--TODO in CSS: Make the buttons div clickable with cursor:pointer -->
   </div>
 <% end %>
