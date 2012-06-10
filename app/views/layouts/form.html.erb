@@ -2,21 +2,15 @@
 <html>
   <head>
     <title>videoList</title>
-    <%= stylesheet_link_tag    "application", media: "all" %>
-    <%= javascript_include_tag "application" %>
+    <%= stylesheet_link_tag "form", media: "all" %>
+    <%= javascript_include_tag "form" %>
     <%= csrf_meta_tags %>
     <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
   </head>
   <body>
-    <div class="container-fluid">
-      <div class="row-fluid">
-        <div class="span12">
-          <%= render 'shared/flash_messages' %>
-          <%= yield %>
-        </div>
-      </div>
-    </div>
+    <%= render 'shared/flash_messages' %>
+    <%= yield %>
   </body>
 </html>

@@ -17,13 +17,35 @@
 	  </iframe>
     <% end %>
 
-    <div id="thumb_up_<%= video.url %>"><IMG SRC="/images/thumb_up.png" ALT="image"></div>
-	<div id="thumb_down_<%= video.url %>"><IMG SRC="/images/thumb_down.png" ALT="image"></div>
-	<div id="share_<%= video.url %>"><IMG SRC="/images/share_button.png" ALT="image"></div>	
+    <div class="thumb_up" id="thumb_up_<%= video.id %>"><IMG SRC="/images/thumb_up.png" ALT="image"></a></div>
+	<div class="thumb_down" id="thumb_down_<%= video.id %>"><IMG SRC="/images/thumb_down.png" ALT="image"></div>
+	<div class="share" id="share_<%= video.id %>"><IMG SRC="/images/share_button.png" ALT="image"></div>	
   <!--TODO in CSS: Make the buttons div clickable with cursor:pointer -->
 
   <% end %>
 
 </ul>
+<% content_for :javascript do %>
+<script type="text/javascript">
+	$(document).ready(function() {
+		<% @videos.each do |video| %>
+	  		$('#thumb_up_<%= video.id %>').click(function() {
+				alert('penis');
+				$.ajax({
+					type: "POST",
+					url: 'http://localhost:3000/rate_up/<%= video.id %>',
+					data: null,
+					success: function(data) {
+						
+					},
+					error: function(data) {
+						console.log(data.message);
+					}
+				});
+			});
+		<% end %>
+	});
+</script>
+<% end %>
 
 
