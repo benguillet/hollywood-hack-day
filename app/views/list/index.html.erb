@@ -30,10 +30,22 @@
 	$(document).ready(function() {
 		<% @videos.each do |video| %>
 	  		$('#thumb_up_<%= video.id %>').click(function() {
-				alert('penis');
 				$.ajax({
-					type: "POST",
+					type: "PUT",
 					url: 'http://localhost:3000/rate_up/<%= video.id %>',
+					data: null,
+					success: function(data) {
+						
+					},
+					error: function(data) {
+						console.log(data.message);
+					}
+				});
+			});
+			$('#thumb_down_<%= video.id %>').click(function() {
+				$.ajax({
+					type: "PUT",
+					url: 'http://localhost:3000/rate_down/<%= video.id %>',
 					data: null,
 					success: function(data) {
 						
