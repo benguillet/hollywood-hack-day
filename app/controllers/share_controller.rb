@@ -31,11 +31,14 @@ class ShareController < ApplicationController
     content.url = # change url for embed url format
     case content.source
       when 'youtube'
-        url.sub!(/^http:\/\/www.youtube.com\/watch\?v=/, 'http://www.youtube.com/embed/')
+        hash = url.match(/^http:\/\/www.youtube.com\/watch\?v=(.*?)(&.*)/)
+        "http://www.youtube.com/embed/#{hash}"
       when 'vimeo'
-        url.sub!(/^http:\/\/vimeo.com\//, 'http://player.vimeo.com/video/')
+        video_id = url.match(/^http:\/\/vimeo.com\/([0-9]*)/)
+        "http://player.vimeo.com/video/#{video_id}"
       when 'dailymotion'
-        url.sub!(/^http:\/\/www.dailymotion.com\/video\//, 'http://www.dailymotion.com/embed/video/')
+        video_id = url.match(/^http:\/\/www.dailymotion.com\/video\/(.*?)_/
+        "http://www.dailymotion.com/embed/video/#{video_id}"
     end
   
     content.post_date = Time.now.strftime('%Y-%m-%d %H:%M:%S')
