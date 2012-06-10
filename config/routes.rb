@@ -14,6 +14,9 @@ VideoList::Application.routes.draw do
 
   get 'import' => 'import_fb#import_user_and_friends_shared_videos'
 
+  get 'me' => 'list#index_me'
+  root :to => 'list#index_friends'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -63,7 +66,6 @@ VideoList::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  root :to => 'list#index'
 
   # See how all your routes lay out with "rake routes"
 
