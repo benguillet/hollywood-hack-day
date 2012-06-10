@@ -18,21 +18,11 @@ class ShareController < ApplicationController
       if not ShareHelper::is_http_url_valid(url)
         raise 'the url you give is not a valid http url'
       end
-      
-      #Useless og tags
-
-      og_tags = ShareHelper::get_opengraph_tags(url)
     else
-      og_tags = JSON.parse(params[:og_tags]) rescue nil
-
-      if og_tags.nil?
-        raise 'unable to get opengraph tags; you should pass a url or a json containing the opengraph tags'
-      end
+      raise 'missing video url'
     end
 
-    if not og_tags or og_tags['video'].nil?
-      raise 'the opengraph tags does not contain any video; if you passed an url, it means there are no og:video meta properties on the page ' 
-    end
+   
 
     content           = Content.new
     content.user_id   = current_user.id
