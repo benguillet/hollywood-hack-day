@@ -44,10 +44,13 @@
             FB.api('/me/feed', 'POST', publish, function(response) {  
               if (!response || response.error) {
                   console.log(response.error.message);
+                  $('#notification').text(response.error.message).show();
+                  $('#loading_post_fb').hide();
               }
               else {
                 console.log(response);
-                
+                $('#loading_post_fb').hide();
+                $('#notification').text('success').show();
               }
             });
           };
@@ -62,6 +65,7 @@
         $(document).ready(function() {
           var url = $('#url').text();
           $('#post_fb').click(function() {
+            $('#loading_post_fb').show();
             publishPost(url);
           });
         });
