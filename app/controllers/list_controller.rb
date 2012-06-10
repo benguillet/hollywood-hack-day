@@ -1,19 +1,16 @@
 class ListController < ApplicationController
-  before_filter :authenticate_user!, :instantiate_controller_and_action_names
- 
-  def instantiate_controller_and_action_names
-      @current_action = action_name
-      @current_controller = controller_name
-  end
+  before_filter :authenticate_user!
 
   def index_me
     if params[:before]
       query = Content.where('user_id = :user_id AND access = :access AND post_date < :post_date', {:user_id => current_user.id, :access => 'me', :post_date => Time.at(Integer(params[:before])).getutc.strftime('%Y-%m-%d %H:%M:%S')})
+    elsif params[:after]
+      query = Content.where('user_id = :user_id AND access = :access AND post_date > :post_date', {:user_id => current_user.id, :access => 'me', :post_date => Time.at(Integer(params[:after])).getutc.strftime('%Y-%m-%d %H:%M:%S')})
     else
       query = Content.where(:user_id => current_user.id, :access => 'me')
     end
 
-    @videos = query.order('post_date DESC').limit(3)
+    @videos = query.order('post_date DESC').limit(5)
 
     respond_to do |format|
       format.html { 
@@ -31,11 +28,13 @@ class ListController < ApplicationController
 
     if params[:before]
       query = Content.where('user_id IN (:user_id) AND access = :access AND post_date < :post_date', {:user_id => @users.map { |e| e.id }, :access => 'friends', :post_date => Time.at(Integer(params[:before])).getutc.strftime('%Y-%m-%d %H:%M:%S')})
+    elsif params[:after]
+      query = Content.where('user_id IN (:user_id) AND access = :access AND post_date > :post_date', {:user_id => @users.map { |e| e.id }, :access => 'friends', :post_date => Time.at(Integer(params[:after])).getutc.strftime('%Y-%m-%d %H:%M:%S')})
     else
       query = Content.where(:user_id => current_user.id, :access => 'me')
     end
 
-    @videos = query.includes(:user).order('(post_date - (rate_down * 1.5 - rate_up) * 1000) DESC').limit(3)
+    @videos = query.includes(:user).order('(post_date - (rate_down * 1.5 - rate_up) * 1000) DESC').limit(5)
 
     respond_to do |format|
       format.html { 
