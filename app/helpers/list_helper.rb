@@ -29,8 +29,8 @@ module ListHelper
       fb_url = response_hash['paging']['next']
     end while not response_hash.nil? and not response_hash['data'].nil? and response_hash['data'].size > 0
 
-    return fb_friends_ids
-  # rescue => e
-  #   return []
+    return fb_friend_ids
+  rescue => e
+    return []
   end
 end
