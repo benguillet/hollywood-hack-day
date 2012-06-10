@@ -12,14 +12,18 @@ class ListController < ApplicationController
 
     @videos = query.order('post_date DESC').limit(5)
 
-    respond_to do |format|
-      format.html { 
-        if request.xhr?
-          render :template => 'list/index', :layout => nil
-        else
-          render :template => 'list/index'
-        end
-      }
+    if @videos.empty? and (params[:before] or params[:after])
+      redirect_to '/me'
+    else    
+      respond_to do |format|
+        format.html { 
+          if request.xhr?
+            render :template => 'list/index', :layout => nil
+          else
+            render :template => 'list/index'
+          end
+        }
+      end
     end
   end
   
@@ -31,19 +35,23 @@ class ListController < ApplicationController
     elsif params[:after]
       query = Content.where('user_id IN (:user_id) AND access = :access AND post_date > :post_date', {:user_id => @users.map { |e| e.id }, :access => 'friends', :post_date => Time.at(Integer(params[:after])).getutc.strftime('%Y-%m-%d %H:%M:%S')})
     else
-      query = Content.where(:user_id => current_user.id, :access => 'me')
+      query = Content.where(:user_id => @users.map { |e| e.id }, :access => 'friends')
     end
 
-    @videos = query.includes(:user).order('(post_date - (rate_down * 1.5 - rate_up) * 1000) DESC').limit(5)
+    @videos = query.includes(:user).order('post_date DESC').limit(5)
 
-    respond_to do |format|
-      format.html { 
-        if request.xhr?
-          render :template => 'list/index', :layout => nil
-        else
-          render :template => 'list/index'
-        end
-      }
+    if @videos.empty? and (params[:before] or params[:after])
+      redirect_to '/friends'
+    else
+      respond_to do |format|
+        format.html { 
+          if request.xhr?
+            render :template => 'list/index', :layout => nil
+          else
+            render :template => 'list/index'
+          end
+        }
+      end
     end
   end
 

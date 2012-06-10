@@ -6,7 +6,7 @@ class ImportFbController < ApplicationController
   require "uri"
 
 
-  USER_VIDEO_FQL_LIMIT   = 20
+  USER_VIDEO_FQL_LIMIT   = 5
   FRIEND_VIDEO_FQL_LIMIT = 1
   
   FQL_QUERY_URL = 'https://api.facebook.com/method/fql.query'
@@ -70,7 +70,7 @@ class ImportFbController < ApplicationController
   
   #
   def get_friends_array
-    perform_fql_query("SELECT uid2 FROM friend WHERE uid1 = me()").collect{ |row| row['uid2'].to_i }
+    perform_fql_query("SELECT uid2 FROM friend WHERE uid1 = me() ORDER BY rand() LIMIT 8").collect{ |row| row['uid2'].to_i }
   end
   
   #
@@ -79,10 +79,12 @@ class ImportFbController < ApplicationController
       import_user_latest_shared_video_links(user_id, FRIEND_VIDEO_FQL_LIMIT)
     end
   end
-  
+
   #
   def import_user_and_friends_shared_videos
-    import_user_latest_shared_video_links('me', USER_VIDEO_FQL_LIMIT)
+    import_user_latest_shared_video_links('me', USER_VIDEO_FQL_LIMIT)    
+    import_friends_latest_shared_video_links
+    
     respond_to do |format|
       format.json { render :json => {:status => 'success'} }
     end
