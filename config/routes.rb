@@ -7,6 +7,8 @@ VideoList::Application.routes.draw do
   end
 
   post 'share-to/:access' => 'share#create', :defaults => {:format => 'json'}
+  put 'rate_up/:content_id' => 'list#rate_up'
+  put 'rate_down/:content_id' => 'list#rate_down'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
