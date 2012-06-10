@@ -11,16 +11,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120610002937) do
+ActiveRecord::Schema.define(:version => 20120610011253) do
 
   create_table "contents", :force => true do |t|
-    t.string   "user_id"
-    t.string   "url"
-    t.integer  "rate_up"
-    t.integer  "rate_down"
-    t.datetime "post_date"
-    t.string   "source"
-    t.string   "access",    :default => "friends", :null => false
+    t.integer  "user_id",   :limit => 255,                        :null => false
+    t.string   "url",                                             :null => false
+    t.integer  "rate_up",                  :default => 0,         :null => false
+    t.integer  "rate_down",                :default => 0,         :null => false
+    t.datetime "post_date",                                       :null => false
+    t.string   "source",                                          :null => false
+    t.string   "access",                   :default => "friends", :null => false
   end
 
   create_table "users", :force => true do |t|
