@@ -11,7 +11,7 @@ class ListController < ApplicationController
   
   def index_friends
     @users  = User.where('id = :id OR (uid IN (:uid) AND provider = :provider)', {:id => current_user.id, :uid => ListHelper::get_facebook_friends_ids(current_user.access_token), :provider => 'facebook'})
-    @videos = Content.includes(:user).where(:user_id => @users.map { |e| e.id.to_s }, :access => 'friends').order('post_date DESC')
+    @videos = Content.includes(:user).where(:user_id => @users.map { |e| e.id.to_s.inspect }, :access => 'friends').order('post_date DESC')
 
     respond_to do |format|
       format.html { render :template => 'list/index' }
