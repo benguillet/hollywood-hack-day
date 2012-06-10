@@ -3,11 +3,19 @@ class ListController < ApplicationController
 
   def index_me
     @videos = Content.where(:user_id => current_user.id, :access => 'me').order('post_date DESC')
+
+    respond_to do |format|
+      format.html { render :template => 'list/index' }
+    end
   end
   
   def index_friends
     @users  = User.where('id = :id OR (uid IN (:uid) AND provider = :provider)', {:id => current_user.id, :uid => ListHelper::get_facebook_friends_ids(current_user.access_token), :provider => 'facebook'})
     @videos = Content.includes(:users).where(:user_id => @users.map { |e| e.id }, :access => 'friends').order('post_date DESC')
+
+    respond_to do |format|
+      format.html { render :template => 'list/index' }
+    end
   end
 
   def rate_up
