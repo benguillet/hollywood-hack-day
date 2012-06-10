@@ -16,10 +16,20 @@
       <div class="navbar-inner">
         <div class="container-fluid">
           <%= link_to "videoList", '/', id: "logo" %>
+            <ul class="nav ">
+              <% if request.env['PATH_INFO'] == '/me' %>
+                <li id="me_tab" class="active"><%= link_to "Me",      '/me' %></li>
+                <li id="friends_tab"><%= link_to "Friends", '/friends' %></li>
+              <% elsif request.env['PATH_INFO'] == '/friend' %>
+                <li id="me_tab"><%= link_to "Me",      '/me' %></li>
+                <li id="friends_tab" class="active"><%= link_to "Friends", '/friends' %></li>
+              <% else %>
+                <li id="me_tab"><%= link_to "Me",      '/me' %></li>
+                <li id="friends_tab" class="active"><%= link_to "Friends", '/friends' %></li>
+              <% end %>
+            </ul>
           <nav>
-            <ul class="nav pull-right">
-              <li><%= link_to "Me",      '/me' %></li>
-              <li><%= link_to "Friends", '/friends' %></li>
+            <ul class="nav pull-right">  
               <% if user_signed_in? %>
                 <li><%= link_to "Sign out", destroy_user_session_path, :method => :delete %></li>
               <% else %>
