@@ -10,6 +10,9 @@ VideoList::Application.routes.draw do
   put 'rate_up/:content_id' => 'list#rate_up'
   put 'rate_down/:content_id' => 'list#rate_down'
 
+  get 'form/sign-in' => 'form#sign_in'
+  get 'form(/:url)'  => 'form#index'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
