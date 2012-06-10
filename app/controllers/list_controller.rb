@@ -1,8 +1,8 @@
 class ListController < ApplicationController
   before_filter :authenticate_user!
 
-  def sort_video_by_hype
-    @videos.sort!{ |a,b|}
+  def sort_videos_by_hype video_array
+    sort_by{|a| (a.rate_down*1.5)-a.rate_up }
   end
 
   def index_me
