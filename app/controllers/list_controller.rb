@@ -6,8 +6,8 @@ class ListController < ApplicationController
   end
   
   def index_friends
-    @friends = User.where(:uid => ListHelper::get_facebook_friends_ids(current_user.access_token), :provider => 'facebook')
-    @videos  = Content.includes(:users).where(:user_id => @friends.map { |e| e.id }, :access => 'friends').order('post_date DESC')
+    @users  = User.where('id = :id OR (uid IN (:uid) AND provider = :provider)', {:id => current_user.id, :uid => ListHelper::get_facebook_friends_ids(current_user.access_token), :provider => 'facebook'})
+    @videos = Content.includes(:users).where(:user_id => @users.map { |e| e.id }, :access => 'friends').order('post_date DESC')
   end
 
   def rate_up
