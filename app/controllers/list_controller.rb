@@ -1,6 +1,10 @@
 class ListController < ApplicationController
   before_filter :authenticate_user!
 
+  def sort_video_by_hype
+    @videos.sort!{ |a,b|}
+  end
+
   def index_me
     @videos = Content.where(:user_id => current_user.id, :access => 'me').order('post_date DESC')
 
