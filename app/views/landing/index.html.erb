@@ -10,7 +10,7 @@
         <h2 style="text-align:center;">Via Mobile Or Web</h2>
     </div>
     <div  class="span4">
-        <img src=<%=image_path("facebook.png")%> />
+        <img src="<%=image_path("facebook.png")%>" />
         <h2 style="text-align:center;">Videos Shared by Friends</h2>
     </div> 
 </div>
@@ -18,7 +18,7 @@
 <div class="row" style="padding-top:100px">
     <div class="span4">
         <h2 style="text-align:center;">Save Videos With Browser Plugin</h2>
-        <img src=<%=image_path("chrome-plugin-screenshot.png")%> />
+        <img src="<%= image_path("chrome-plugin-screenshot.png") %>" />
     </div>
     <div class="span4">
         <h3 style="text-align:center;">Vids4.me Gives You:</h3> 
@@ -29,44 +29,6 @@
             <li>Save videos for future viewing</li>
             <li>Watch video on any device, anywhere</li>
         </ul>
-        <a href="#"><img src=<%=image_path("Register-now-button.png")%>></a>     
+        <%= button_to('Sign up with Facebook', user_omniauth_authorize_path(:facebook), :class => 'btn btn-large btn-primary')  %> 
     </div>
 </div>
-<footer>
-    <p>French Foreign Legion</p>
-</footer>
-
-    <!-- Le javascript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-
-    <!-- TODO PUT THIS IN THE ASSETS/STYLESHEET/LANDING.cSS 
-  <style type="text/css">
-          body{
-        font-family: 'FranchiseRegular';
-              }
-    </style>
-  -->
-  <!--
-  <script type="text/javascript" charset="utf-8">
-    $(document).ready(function() {
-      $('#container').easyTabs({defaultContent:1});
-    });
-  </script>
-    <!-- Le styles -->
-    <!--
-    <link href="bootstrap.css" rel="stylesheet">
-    <style type="text/css">
-      body {
-        padding-top: 60px;
-        padding-bottom: 40px;
-      }
-    </style>
-    -->
-
-    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-
-    <!-- Le fav and touch icons -->
