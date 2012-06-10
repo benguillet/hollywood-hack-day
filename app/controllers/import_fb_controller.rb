@@ -95,17 +95,21 @@ class ImportFbController < ApplicationController
     content.user_id   = current_user.id
     content.source    = URI(url).host.match(/(www\.)?(.*)\.com/)[2]
     
+    url = ShareHelper::sanitize_url(url)
+    
     content.url = # change url for embed url format
     case content.source
       when 'youtube'
-        url.sub!(/^http:\/\/www.youtube.com\/watch\?v=/, 'http://www.youtube.com/embed/')
+        hash = url.match(/^http:\/\/www.youtube.com\/watch\?v=([a-zA-Z0-9\-_]+)&?.*/)[1]
+        "http://www.youtube.com/embed/#{hash}"
       when 'vimeo'
-        url.sub!(/^http:\/\/vimeo.com\//, 'http://player.vimeo.com/video/')
+        video_id = url.match(/^http:\/\/vimeo.com\/([0-9]*)/)[1]
+        "http://player.vimeo.com/video/#{video_id}"
       when 'dailymotion'
-        url.sub!(/^http:\/\/www.dailymotion.com\/video\//, 'http://www.dailymotion.com/embed/video/')
+        video_id = url.match(/^http:\/\/www.dailymotion.com\/video\/([^_]+)/)[1]
+        "http://www.dailymotion.com/embed/video/#{video_id}"
     end
     
-    content.url       = ShareHelper::sanitize_url(url)
     content.post_date = Time.now.strftime('%Y-%m-%d %H:%M:%S')
     content.access    = 'friends'
 
