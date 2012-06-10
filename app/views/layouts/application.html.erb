@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>videoList</title>
+    <title>Vids4.me</title>
     <%= stylesheet_link_tag    "application", media: "all" %>
     <%= javascript_include_tag "application" %>
     <%= yield :javascript %>
@@ -15,18 +15,18 @@
     <header class="navbar">
       <div class="navbar-inner">
         <div class="container-fluid">
-          <%= link_to "videoList", '/', id: "logo" %>
+          <%= link_to "Vids4.me", '/', id: "logo" %>
             <nav>
               <ul class="nav pull-left">
                 <% if request.env['PATH_INFO'] == '/me' %>
                   <li id="me_tab" class="active"><%= link_to "Me",      '/me' %></li>
                   <li id="friends_tab"><%= link_to "Friends", '/friends' %></li>
-                <% elsif request.env['PATH_INFO'] == '/friend' %>
+                <% elsif request.env['PATH_INFO'] == '/friends' %>
                   <li id="me_tab"><%= link_to "Me",      '/me' %></li>
                   <li id="friends_tab" class="active"><%= link_to "Friends", '/friends' %></li>
                 <% else %>
-                  <li id="me_tab"><%= link_to "Me",      '/me' %></li>
-                  <li id="friends_tab" class="active"><%= link_to "Friends", '/friends' %></li>
+                  <li id="me_tab"><%= link_to "Me", '/me' %></li>
+                  <li id="friends_tab"><%= link_to "Friends", '/friends' %></li>
                 <% end %>
               </ul>
               <ul class="nav pull-right">

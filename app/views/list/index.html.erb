@@ -54,7 +54,7 @@
     <div class="row-fluid">
       <div class="span12">
         <% case video.source %>
-        <% when "youtube" %>  
+        <% when "youtube" %>
           <iframe class="video" id= "<%= video.id %>" type="text/html" width="640" height="390" src="<%= video.url %>?modestbranding=1&controls=0&showinfo=0&wmode=transparent" frameborder="0"/>
           </iframe>
         <% when "vimeo" %>
@@ -70,8 +70,6 @@
           <div class="share" data-id="<%= video.id %>" style="float:left"><IMG SRC=<%=image_path("share_button.png")%> ALT="image"></div>
         </div>
         <!--TODO in CSS: Make the buttons div clickable with cursor:pointer -->
-      </div>
-      <!--TODO in CSS: Make the buttons div clickable with cursor:pointer -->
     </div>
   </div>
 <% end %>
