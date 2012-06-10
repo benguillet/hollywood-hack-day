@@ -26,6 +26,19 @@
           }
         });
       });
+	  $('.share').click(function() {
+        $.ajax({
+          type: "POST",
+          url: '/share-to/friends',
+          data: {'content_id': $(this).data('id'), 'internal': 1}
+          success: function(data) {
+
+          },
+          error: function(data) {
+            console.log(data.message);
+          }
+        });
+      });
     });
   </script>
 <% end %>
