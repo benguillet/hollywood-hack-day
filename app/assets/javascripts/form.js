@@ -5,7 +5,7 @@ $(document).ready(function() {
         console.log(url);
         $.ajax({
           type: "POST",
-          url: "http://localhost:3000/share-to/me",  
+          url: "http://localhost.com:3000/share-to/me",  
           data: {'url': url},
           success: function() {  
            
