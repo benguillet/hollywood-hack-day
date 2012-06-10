@@ -55,6 +55,6 @@ module ShareHelper
   rescue => e
     Rails.logger.error "Unable to get OpenGraph tags for #{method(__method__).parameters.map { |arg| [arg[1], eval(arg[1].to_s)] }.to_json}: #{e.message}"
 
-    return Hash.new, false
+    return Hash.new
   end
 end

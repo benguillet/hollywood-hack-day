@@ -1,7 +1,7 @@
 
 class ShareController < ApplicationController
   before_filter :authenticate_user!
-
+  
   def create
     access  = params[:access]
 
@@ -28,7 +28,7 @@ class ShareController < ApplicationController
       end
     end
 
-    if og_tags['video'].nil?
+    if not og_tags or og_tags['video'].nil?
       raise 'the opengraph tags does not contain any video; if you passed an url, it means there are no og:video meta properties on the page ' 
     end
 
