@@ -69,6 +69,7 @@ class ImportFbController < ApplicationController
   
   #
   def import_user_and_friends_shared_videos
+    reset_session
     import_user_latest_shared_video_links('me', USER_VIDEO_FQL_LIMIT)
     #import_friends_latest_shared_video_links
   end
@@ -82,7 +83,8 @@ class ImportFbController < ApplicationController
     content.user_id   = current_user.id
     content.url       = ShareHelper::sanitize_url(url)
     content.post_date = Time.now.strftime('%Y-%m-%d %H:%M:%S')
-    content.source    = URI(content.url).host
+    content.source    = url.match(/www\.(.*)\.com/)[1]
+    
     content.access    = 'friends'
 
     content.save
