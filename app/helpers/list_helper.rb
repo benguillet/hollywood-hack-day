@@ -30,7 +30,7 @@ module ListHelper
     end while not response_hash.nil? and not response_hash['data'].nil? and response_hash['data'].size > 0
 
     return fb_friends_ids
-  rescue => e
-    return []
+  # rescue => e
+  #   return []
   end
 end
