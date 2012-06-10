@@ -12,11 +12,11 @@ $(document).ready(function() {
           data: {'url': url},
           success: function() {
             loading_add_list.hide();
-            $('#notification').text('succes').removeClass('alert-error').addClass("alert-success").show();
+            $('#notification').text('success').removeClass('alert-error').addClass("alert-success").show();
           },
           error: function() {
             loading_add_list.hide();
-            $('#notification').text('fail').removeClass('alert-success').addClass("alert-error").show();
+            $('#notification').text('website not supported').removeClass('alert-success').addClass("alert-error").show();
           }
         });
     });
@@ -31,11 +31,11 @@ $(document).ready(function() {
           data: {'url': url},
           success: function() {
             loading_share_friends.hide();
-            $('#notification').text('succes').removeClass('alert-error').addClass("alert-success").show();
+            $('#notification').text('success').removeClass('alert-error').addClass("alert-success").show();
           },
           error: function() {
             loading_share_friends.hide();
-            $('#notification').text('fail').removeClass('alert-success').addClass("alert-error").show();
+            $('#notification').text('website not supported').removeClass('alert-success').addClass("alert-error").show();
             
           }
         });  
