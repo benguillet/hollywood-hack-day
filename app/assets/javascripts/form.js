@@ -4,12 +4,14 @@ $(document).ready(function() {
     var url = $('#url').text();
 
     $('#add_list').click(function() {
-        console.log(url);
         $.ajax({
           type: "POST",
           url: "/share-to/me",  
           data: {'url': url},
           success: function() {
+            $('#notification').show();
+          },
+          error: function() {
 
           }
         });
@@ -17,14 +19,16 @@ $(document).ready(function() {
 
     $('#share_friends').click(function() {
         var url = $('#url').text();
-        console.log(url);
         $.ajax({
           type: "POST",
           url: "/share-to/friends",  
           data: {'url': url},
           success: function() {  
-           
-          }  
+           $('#notification').show();
+          },
+          error: function() {
+            
+          }
         });  
     });
 });
