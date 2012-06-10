@@ -34,9 +34,22 @@ class ShareController < ApplicationController
 
     content           = Content.new
     content.user_id   = current_user.id
+    content.source    = URI(content.url).host.split('.').at(-2)
+    #TODO: change url to embedded url:
+    # http://www.youtube.com/embed/HASH
+    # http://player.vimeo.com/video/HASH
+    # http://www.dailymotion.com/embed/video/NAME
+    case content.source
+    when "youtube"
+      
+    when "vimeo"
+      
+    when "dailymotion"
+      
+    end
+    
     content.url       = ShareHelper::sanitize_url(og_tags['video'])
     content.post_date = Time.now.strftime('%Y-%m-%d %H:%M:%S')
-    content.source    = URI(content.url).host.split('.').at(-2)
     content.access    = access
 
     content.save
