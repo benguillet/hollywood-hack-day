@@ -7,10 +7,12 @@ VideoList::Application.routes.draw do
   end
 
   post 'share-to/:access' => 'share#create', :defaults => {:format => 'json'}
+
   put 'rate_up/:content_id' => 'list#rate_up'
   put 'rate_down/:content_id' => 'list#rate_down'
 
-  get 'form' => 'form#index'
+  get 'form'         => 'form#index'
+  get 'form/sign-in' => 'form#sign_in'
 
   get 'import' => 'import_fb#import_user_and_friends_shared_videos'
 

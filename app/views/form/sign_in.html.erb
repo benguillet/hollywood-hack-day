@@ -21,6 +21,6 @@
     d.getElementsByTagName('head')[0].appendChild(js);
   }(document));
 </script>
-<fb:login-button size="xlarge" onlogin="window.location = '/form/sign-in/success'">
+<fb:login-button size="xlarge" onlogin="window.location = '/form/sign-in?success=1&share=<%= URI.escape(@share) %>'">
   Login with Facebook
 </fb:login-button>
