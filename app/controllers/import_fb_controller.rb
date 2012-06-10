@@ -98,13 +98,13 @@ class ImportFbController < ApplicationController
     content.url = # change url for embed url format
     case content.source
       when 'youtube'
-        hash = url.match(/^http:\/\/www.youtube.com\/watch\?v=(.*?)(&.*)/)
+        hash = url.match(/^http:\/\/www.youtube.com\/watch\?v=(.*?)(&.*)/)[1]
         "http://www.youtube.com/embed/#{hash}"
       when 'vimeo'
-        video_id = url.match(/^http:\/\/vimeo.com\/([0-9]*)/)
+        video_id = url.match(/^http:\/\/vimeo.com\/([0-9]*)/)[1]
         "http://player.vimeo.com/video/#{video_id}"
       when 'dailymotion'
-        video_id = url.match(/^http:\/\/www.dailymotion.com\/video\/(.*?)_/
+        video_id = url.match(/^http:\/\/www.dailymotion.com\/video\/(.*?)_/)[1]
         "http://www.dailymotion.com/embed/video/#{video_id}"
     end
     
