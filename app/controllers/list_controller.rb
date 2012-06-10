@@ -2,7 +2,7 @@ class ListController < ApplicationController
   before_filter :authenticate_user!
 
   def sort_videos_by_hype video_array
-    sort_by{|a| (a.rate_down*1.5)-a.rate_up }
+    video_array.sort_by{|a| (a.rate_down*1.5)-a.rate_up }
   end
 
   def index_me
@@ -15,7 +15,7 @@ class ListController < ApplicationController
   
   def index_friends
     @users  = User.where('id = :id OR (uid IN (:uid) AND provider = :provider)', {:id => current_user.id, :uid => ListHelper::get_facebook_friends_ids(current_user.access_token).map { |e| e.to_s }, :provider => 'facebook'})
-    @videos = Content.includes(:user).where(:user_id => @users.map { |e| e.id }, :access => 'friends').order('post_date DESC')
+    @videos =  sort_videos_by_hype Content.includes(:user).where(:user_id => @users.map { |e| e.id }, :access => 'friends').order('post_date DESC')
 
     respond_to do |format|
       format.html { render :template => 'list/index' }
