@@ -24,14 +24,15 @@ ActiveRecord::Schema.define(:version => 20120610233538) do
   end
 
   create_table "users", :force => true do |t|
-    t.string   "email",            :default => "", :null => false
-    t.datetime "created_at",                       :null => false
-    t.datetime "updated_at",                       :null => false
+    t.string   "email",               :default => "", :null => false
+    t.datetime "created_at",                          :null => false
+    t.datetime "updated_at",                          :null => false
     t.string   "name"
     t.string   "provider"
     t.string   "uid"
-    t.string   "access_token",     :default => "", :null => false
-    t.integer  "imported_from_fb", :default => 0
+    t.string   "access_token",        :default => "", :null => false
+    t.datetime "remember_created_at"
+    t.integer  "imported_from_fb",    :default => 0
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
