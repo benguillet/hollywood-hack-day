@@ -85,9 +85,10 @@ class ImportFbController < ApplicationController
     import_user_latest_shared_video_links('me', USER_VIDEO_FQL_LIMIT)    
     import_friends_latest_shared_video_links
     
-    respond_to do |format|
-      format.json { render :json => {:status => 'success'} }
-    end
+    current_user.imported_from_fb = 1
+    current_user.save
+    
+    redirect_to :controller=>'list', :action => 'index_friends'
     
   end
 

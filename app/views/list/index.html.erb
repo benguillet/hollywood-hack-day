@@ -44,6 +44,10 @@
   </script>
 <% end %>
 
+<% if current_user.imported_from_fb == 0 and @current_action == 'index_friends'%>
+   <li id="import_fb"><%= link_to "Import latest videos from Facebook", '/import' %></li>
+<% end %>
+
 <% @videos.each do |video| %>
   <% next if not ['youtube', 'dailymotion', 'vimeo'].include? video.source %>
 
@@ -75,7 +79,7 @@
     <!--TODO in CSS: Make the buttons div clickable with cursor:pointer -->
   </div>
 <% end %>
-
+<% if !@videos.last.nil? %>
 <div class="span12" style="text-align:center">
   <h3 style="float:left">
     <%= link_to "< Older videos", '/friends?before=' + @videos.last.post_date.to_i.to_s %>
@@ -84,3 +88,4 @@
     <%= link_to "Newer videos >", '/friends?after=' + @videos.first.post_date.to_i.to_s %>
   </h3>
 </div>
+<% end %>
