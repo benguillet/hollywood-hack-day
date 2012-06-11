@@ -7,18 +7,13 @@ class ListController < ApplicationController
   end
 
   def index_me
-    if params[:before]
-      query = Content.where('user_id = :user_id AND access = :access AND post_date < :post_date', {:user_id => current_user.id, :access => 'me', :post_date => Time.at(Integer(params[:before])).getutc.strftime('%Y-%m-%d %H:%M:%S')})
-    elsif params[:after]
-      query = Content.where('user_id = :user_id AND access = :access AND post_date > :post_date', {:user_id => current_user.id, :access => 'me', :post_date => Time.at(Integer(params[:after])).getutc.strftime('%Y-%m-%d %H:%M:%S')})
-    else
-      query = Content.where(:user_id => current_user.id, :access => 'me')
-    end
+    @page   = Integer(params[:page]) rescue 0
+    @videos = Content.where(:user_id => current_user.id, :access => 'me').order('DATE(post_date) DESC, rate_up-(rate_down*1.5) DESC').offset(@page * 5).limit(5)
 
-    @videos = query.order('strftime(\'%j\', post_date) DESC, rate_up-(rate_down*1.5) DESC').limit(5)
+    if @videos.empty?
+      flash[:error] = "No older videos"
 
-    if @videos.empty? and (params[:before] or params[:after])
-      redirect_to '/me'
+      redirect_to '/me?page=' + (@page - 1).to_s
     else    
       respond_to do |format|
         format.html { 
@@ -33,20 +28,14 @@ class ListController < ApplicationController
   end
   
   def index_friends
+    @page   = Integer(params[:page]) rescue 0
     @users  = User.where('id = :id OR (uid IN (:uid) AND provider = :provider)', {:id => current_user.id, :uid => ListHelper::get_facebook_friends_ids(current_user.access_token).map { |e| e.to_s }, :provider => 'facebook'})
+    @videos = Content.where(:user_id => @users.map { |e| e.id }, :access => 'friends').includes(:user).order('DATE(post_date) DESC, rate_up-(rate_down*1.5) DESC').offset(@page * 5).limit(5)
 
-    if params[:before]
-      query = Content.where('user_id IN (:user_id) AND access = :access AND post_date < :post_date', {:user_id => @users.map { |e| e.id }, :access => 'friends', :post_date => Time.at(Integer(params[:before])).getutc.strftime('%Y-%m-%d %H:%M:%S')})
-    elsif params[:after]
-      query = Content.where('user_id IN (:user_id) AND access = :access AND post_date > :post_date', {:user_id => @users.map { |e| e.id }, :access => 'friends', :post_date => Time.at(Integer(params[:after])).getutc.strftime('%Y-%m-%d %H:%M:%S')})
-    else
-      query = Content.where(:user_id => @users.map { |e| e.id }, :access => 'friends')
-    end
+    if @videos.empty?
+      flash[:error] = "No older videos"
 
-    @videos = query.includes(:user).order('strftime(\'%j\', post_date) DESC, rate_up-(rate_down*1.5) DESC').limit(5)
-
-    if @videos.empty? and (params[:before] or params[:after])
-      redirect_to '/friends'
+      redirect_to '/friends?page=' + (@page - 1).to_s
     else
       respond_to do |format|
         format.html { 
