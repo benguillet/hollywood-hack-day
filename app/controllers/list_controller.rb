@@ -1,5 +1,10 @@
 class ListController < ApplicationController
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, :instantiate_controller_and_action_names
+ 
+  def instantiate_controller_and_action_names
+      @current_action = action_name
+      @current_controller = controller_name
+  end
 
   def index_me
     if params[:before]
@@ -10,7 +15,7 @@ class ListController < ApplicationController
       query = Content.where(:user_id => current_user.id, :access => 'me')
     end
 
-    @videos = query.order('post_date DESC').limit(5)
+    @videos = query.order('strftime(\'%j\', post_date) DESC, rate_up-(rate_down*1.5) DESC').limit(5)
 
     if @videos.empty? and (params[:before] or params[:after])
       redirect_to '/me'
@@ -38,7 +43,7 @@ class ListController < ApplicationController
       query = Content.where(:user_id => @users.map { |e| e.id }, :access => 'friends')
     end
 
-    @videos = query.includes(:user).order('post_date DESC').limit(5)
+    @videos = query.includes(:user).order('strftime(\'%j\', post_date) DESC, rate_up-(rate_down*1.5) DESC').limit(5)
 
     if @videos.empty? and (params[:before] or params[:after])
       redirect_to '/friends'
