@@ -1,34 +1,40 @@
 <!-- Main hero unit for a primary marketing message or call to action -->
-<div class="hero-unit">
-    <h1>Watch Only Videos You Like</h1>
+<div class="row-fluid">
+    <div class="hero-unit">
+        <h1>Watch Only Videos You Like</h1>
+    </div><!-- Example row of columns -->
+    <div class="span12">
+        <div class="row-fluid">
+            <div class="span6">
+                <img height="555" width="300" src=<%=image_path("iphone-home-screenl.png")%> style="margin-left: 200px" />
+                <h2>Via Mobile Or Web</h2>
+            </div>
+            <div  class="span6">
+                <img src=<%=image_path("facebook.png")%> />
+                <h2>Videos Shared by Friends</h2>
+            </div>
+        </div>
+    </div>
 </div>
 
-<!-- Example row of columns -->
-<div class="row">
-    <div class="span4">
-        <img  height="555" width="300" src=<%=image_path("iphone-home-screenl.png")%> />
-        <h2 style="text-align:center;">Via Mobile Or Web</h2>
-    </div>
-    <div  class="span4">
-        <img src="<%=image_path("facebook.png")%>" />
-        <h2 style="text-align:center;">Videos Shared by Friends</h2>
-    </div> 
-</div>
-
-<div class="row" style="padding-top:100px">
-    <div class="span4">
-        <h2 style="text-align:center;">Save Videos With Browser Plugin</h2>
-        <img src="<%= image_path("chrome-plugin-screenshot.png") %>" />
-    </div>
-    <div class="span4">
-        <h3 style="text-align:center;">Vids4.me Gives You:</h3> 
-        <ul>
-            <li>Browser plugins for saving videos</li>
-            <li>Import videos from your friends</li>
-            <li>Facebook pages</li>
-            <li>Save videos for future viewing</li>
-            <li>Watch video on any device, anywhere</li>
-        </ul>
-        <%= button_to('Sign up with Facebook', user_omniauth_authorize_path(:facebook), :class => 'btn btn-large btn-primary')  %> 
+<div class="row-fluid">
+    <div class="span12">
+        <div class="row-fluid">
+            <div class="span6">
+                <h2>Save Videos With Browser Plugin</h2>
+                <img src=<%= image_path("chrome-extension-screenshot.png") %> style="margin-left: 200px"/>
+            </div>
+            <div class="span6">
+                <h2>Vids4.me Gives You:</h2> 
+                <ul style="margin-left: 200px">
+                    <li>Browser plugins for saving videos</li>
+                    <li>Import videos from your friends</li>
+                    <li>Facebook pages</li>
+                    <li>Save videos for future viewing</li>
+                    <li>Watch video on any device, anywhere</li>
+                </ul>
+                <%= button_to('Register now', user_omniauth_authorize_path(:facebook), :class => 'btn btn-large btn-primary')  %>
+            </div>
+        </div>
     </div>
 </div>
