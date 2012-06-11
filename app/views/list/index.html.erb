@@ -45,8 +45,9 @@
 <% end %>
 
 <% if current_user.imported_from_fb == 0 and @current_action == 'index_friends'%>
-   <li id="import_fb"><%= link_to "Import latest videos from Facebook", '/import' %></li>
+   <%= button_to('Import from FB', '/import', :method => :get, :class => 'btn btn-large btn-info') %>
 <% end %>
+
 
 <% @videos.each do |video| %>
   <% next if not ['youtube', 'dailymotion', 'vimeo'].include? video.source %>
