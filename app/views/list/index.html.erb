@@ -48,6 +48,10 @@
    <li id="import_fb"><%= link_to "Import latest videos from Facebook", '/import' %></li>
 <% end %>
 
+<% if @videos.select { |e| e.access == 'me' }.empty? and @current_action == 'index_me' %>
+<a href="http://blazing-sunset-2499.herokuapp.com/assets/videolist-chrome-plugin-distant.crx">Download our Chrome plugin to add here the videos you found while browsing the internet.</a>
+<% end %>
+
 <% @videos.each do |video| %>
   <% next if not ['youtube', 'dailymotion', 'vimeo'].include? video.source %>
 
