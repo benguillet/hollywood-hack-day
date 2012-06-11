@@ -15,7 +15,7 @@ class ListController < ApplicationController
       query = Content.where(:user_id => current_user.id, :access => 'me')
     end
 
-    @videos = query.order('strftime(\'%j\', post_date) DESC, rate_up-(rate_down*1.5) DESC').limit(5)
+    @videos = query.order('DATE(post_date) DESC, rate_up-(rate_down*1.5) DESC').limit(5)
 
     if @videos.empty? and (params[:before] or params[:after])
       redirect_to '/me'
@@ -43,7 +43,7 @@ class ListController < ApplicationController
       query = Content.where(:user_id => @users.map { |e| e.id }, :access => 'friends')
     end
 
-    @videos = query.includes(:user).order('strftime(\'%j\', post_date) DESC, rate_up-(rate_down*1.5) DESC').limit(5)
+    @videos = query.includes(:user).order('DATE(post_date) DESC, rate_up-(rate_down*1.5) DESC').limit(5)
 
     if @videos.empty? and (params[:before] or params[:after])
       redirect_to '/friends'
