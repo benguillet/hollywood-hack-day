@@ -49,46 +49,51 @@
 <% end %>
 
 
-<% @videos.each do |video| %>
-  <% next if not ['youtube', 'dailymotion', 'vimeo'].include? video.source %>
-
-  <div class="row-fluid" style="padding:10px">
-    <div>
-      <% if @current_action == 'index_friends' %>
-        <div style="padding:5px">
-          <h2>
-            <%= video.user.name %>
-          </h2>
+<div class="row">
+  <% @videos.each do |video| %>
+    <% next if not ['youtube', 'dailymotion', 'vimeo'].include? video.source %>
+    <div class="row" style="padding:10px">
+      <div>
+        <% if @current_action == 'index_friends' %>
+          <div style="padding:5px">
+            <h2>
+              <%= video.user.name %>
+            </h2>
+          </div>
+        <% end %>
+        <% case video.source %>
+        <% when "youtube" %>
+          <iframe class="video" style="float:left" id= "<%= video.id %>" type="text/html" width="640" height="390" src="<%= video.url %>?modestbranding=1&controls=0&showinfo=0&wmode=transparent" frameborder="0"></iframe>
+        <% when "vimeo" %>
+          <iframe class="video" style="float:left" src="<%= video.url %>?title=0&byline=0&portrait=0&wmode=transparent" width="640" height="390" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+        <% when "dailymotion" %>
+          <iframe class="video" style="float:left" src="<%= video.url %>?info=0&logo=0&wmode=transparent" width="640" height="390" frameborder="0"></iframe>
+        <% end %>
+        <div class="thumb_up" data-id="<%= video.id %>" style="margin-left:650px">
+          <IMG SRC=<%=image_path("thumb_up.png")%> ALT="image">
         </div>
-      <% end %>
-      <% case video.source %>
-      <% when "youtube" %>
-        <iframe class="video" style="float:left" id= "<%= video.id %>" type="text/html" width="640" height="390" src="<%= video.url %>?modestbranding=1&controls=0&showinfo=0&wmode=transparent" frameborder="0"></iframe>
-      <% when "vimeo" %>
-        <iframe class="video" style="float:left" src="<%= video.url %>?title=0&byline=0&portrait=0&wmode=transparent" width="640" height="390" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
-      <% when "dailymotion" %>
-        <iframe class="video" style="float:left" src="<%= video.url %>?info=0&logo=0&wmode=transparent" width="640" height="390" frameborder="0"></iframe>
-      <% end %>
-      <div class="thumb_up" data-id="<%= video.id %>" style="margin-left:650px">
-        <IMG SRC=<%=image_path("thumb_up.png")%> ALT="image">
+        <div class="share" data-id="<%= video.id %>" style="margin-left:650px">
+          <IMG SRC=<%=image_path("share_button.png")%> ALT="image">
+        </div>
+        <div class="thumb_down" data-id="<%= video.id %>" style="margin-left:650px">
+          <IMG SRC=<%=image_path("thumb_down.png")%> ALT="image">
+        </div>
       </div>
-      <div class="share" data-id="<%= video.id %>" style="margin-left:650px">
-        <IMG SRC=<%=image_path("share_button.png")%> ALT="image">
-      </div>
-      <div class="thumb_down" data-id="<%= video.id %>" style="margin-left:650px">
-        <IMG SRC=<%=image_path("thumb_down.png")%> ALT="image">
-      </div>
+      <!--TODO in CSS: Make the buttons div clickable with cursor:pointer -->
     </div>
-    <!--TODO in CSS: Make the buttons div clickable with cursor:pointer -->
-  </div>
-<% end %>
-<% if !@videos.last.nil? %>
-<div class="span12" style="text-align:center">
-  <h3 style="float:left">
-    <%= link_to "< Older videos", '/friends?before=' + @videos.last.post_date.to_i.to_s %>
-  </h3>
-  <h3 style="padding-left:10px;float:left">
-    <%= link_to "Newer videos >", '/friends?after=' + @videos.first.post_date.to_i.to_s %>
-  </h3>
+  <% end %>
+<div>
+
+<div class="row">
+  <% if !@videos.last.nil? %>
+    <div class="span12" style="text-align:center">
+      <h3 style="float:left">
+        <%= link_to "< Older videos", '/friends?before=' + @videos.last.post_date.to_i.to_s %>
+      </h3>
+      <h3 style="float:right">
+        <%= link_to "Newer videos >", '/friends?after=' + @videos.first.post_date.to_i.to_s %>
+      </h3>
+    </div>
+    <div style="clear:both"></div>
+  <% end %>
 </div>
-<% end %>
