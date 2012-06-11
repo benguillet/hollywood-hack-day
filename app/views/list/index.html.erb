@@ -88,11 +88,13 @@
   <% if !@videos.last.nil? %>
     <div class="span12" style="text-align:center">
       <h3 style="float:left">
-        <%= link_to "< Older videos", '/friends?before=' + @videos.last.post_date.to_i.to_s %>
+        <%= link_to "< Older videos", '/friends?page=' + (@page + 1).to_s %>
       </h3>
-      <h3 style="float:right">
-        <%= link_to "Newer videos >", '/friends?after=' + @videos.first.post_date.to_i.to_s %>
-      </h3>
+      <% if @page > 0 %>
+        <h3 style="float:right">
+          <%= link_to "Newer videos >", '/friends?page=' + (@page - 1).to_s %>
+        </h3>
+      <% end %>
     </div>
     <div style="clear:both"></div>
   <% end %>
